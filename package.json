@@ -2,9 +2,10 @@
   "name": "connectx",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "BE/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node BE/server.js",
+    "dev": "nodemon BE/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,18 @@
   },
   "homepage": "https://github.com/Lainitha/connectx#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
+    "cookie-parse": "^0.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.0"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "type": "module"
+  
 }
