@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import generateToken from "../utils/generateTokens.js";
 
 
 export const signup = async(req, res) => 
@@ -16,7 +17,7 @@ export const signup = async(req, res) =>
             return res.status(400).json({ message: "Email or Username already in use" });
         }
 
-        if (password,length <6) {
+        if (password.length < 6) {
             return res.status(400).json({ message: "Password must be at least 6 characters long" });
         }
 
@@ -31,9 +32,24 @@ export const signup = async(req, res) =>
             email,
             password: hashedPassword
         });
+
+
         if (newUser){
+            generateToken(newUser._id, res);
             await newUser.save();
-            res.status(201).json({ message: "User registered successfully" });
+            res.status(201).json({ _id: newUser._id, 
+                username: newUser.username, 
+                fullName: newUser.fullName, 
+                email: newUser.email,
+                followers: newUser.followers,
+                following: newUser.following, 
+                profileImg: newUser.profileImg, 
+                coverImg: newUser.coverImg, 
+                bio: newUser.bio, 
+                link: newUser.link,});
+        }
+        else {
+            res.status(400).json({ message: "Failed to register user" });
         }
     }
 
