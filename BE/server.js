@@ -10,11 +10,15 @@ const PORT = process.env.PORT ;
 
 import authRoute from "./routes/auth.rout.js";
 import connectDB from "./db/connectDB.js";
+import userRoute from "./routes/user.router.js";
+
+
 
 app.use(express.json());
 app.use(cookieParser());    
 
 app.use("/api/auth",authRoute);
+app.use("/api/users",userRoute); 
 
 
 
