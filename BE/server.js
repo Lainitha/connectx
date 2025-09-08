@@ -15,10 +15,12 @@ import userRoute from "./routes/user.router.js";
 
 
 app.use(express.json());
-app.use(cookieParser());    
+app.use(cookieParser());//middleware to parse cookies from incoming requests
 
 app.use("/api/auth",authRoute);
+
 app.use("/api/users",userRoute); 
+
 
 
 
