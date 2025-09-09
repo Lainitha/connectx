@@ -89,3 +89,23 @@ export const getSuggestedUsers = async (req, res) => {
         res.status(500).json({message: "Internal Server Error"});
     }
 };
+
+export const updateUser = async (req,res) => {
+    try{
+        const userId = req.user._id;
+        const {username, fullname , email, currentPassword, newPassword, bio, link} = req.body;
+        const user = await User.findById(_id : userId);
+
+        if (!user){
+            return res.status(404).json({message: "User not found"});
+        };
+
+        if ((!newPassword && currentPassword) || (newPassword && !currentPassword)){
+            return res.status(400).json({message: "Both current and new passwords are required to change password"});
+        };
+    }
+    catch(error){
+        console.error(`Error in updateUser: ${error.message}`);
+        res.status(500).json({message: "Internal Server Error"});
+    };
+};

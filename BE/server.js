@@ -18,8 +18,8 @@ app.use(express.json());
 app.use(cookieParser());//middleware to parse cookies from incoming requests
 
 app.use("/api/auth",authRoute);
-
 app.use("/api/users",userRoute); 
+
 
 
 
