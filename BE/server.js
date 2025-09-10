@@ -18,7 +18,7 @@ cloudinary.config({
 import authRoute from "./routes/auth.rout.js";
 import connectDB from "./db/connectDB.js";
 import userRoute from "./routes/user.router.js";
-import postRoute from "./routes/post.router.js";
+import postRoute from "./routes/post.route.js";
 
 
 
@@ -28,7 +28,7 @@ app.use(cookieParser());//middleware to parse cookies from incoming requests
 
 app.use("/api/auth",authRoute);
 app.use("/api/users",userRoute); 
-app.use("api/posts",postRoute);
+app.use("/api/posts",postRoute);
 
 
 
