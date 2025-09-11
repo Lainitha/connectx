@@ -8,17 +8,17 @@ export const signup = async(req, res) =>
         const { username, fullName, email, password } = req.body;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            return res.status(400).json({ message: "Invalid email format" });
+            return res.status(404).json({ message: "Invalid email format" });
         }
 
         const existingUser = await User.findOne({ email: email });
         const existingUsername = await User.findOne({ username: username });
         if (existingUser || existingUsername) {
-            return res.status(400).json({ message: "Email or Username already in use" });
+            return res.status(404).json({ message: "Email or Username already in use" });
         }
 
         if (password.length < 6) {
-            return res.status(400).json({ message: "Password must be at least 6 characters long" });
+            return res.status(404).json({ message: "Password must be at least 6 characters long" });
         }
 
         //hasing the password before saving to db
@@ -49,7 +49,7 @@ export const signup = async(req, res) =>
                 link: newUser.link,});
         }
         else {
-            res.status(400).json({ message: "Failed to register user" });
+            res.status(404).json({ message: "Failed to register user" });
         }
     }
 
@@ -67,7 +67,7 @@ export const login =async (req, res) => {
         const isPasswordCorrect =  await bcrypt.compare(password, user?.password || "") ;
 
         if (!user || ! isPasswordCorrect){
-            return res.status(400).json({
+            return res.status(404).json({
                 error: "Invalid username or password"})
         }
         generateToken(user._id, res);

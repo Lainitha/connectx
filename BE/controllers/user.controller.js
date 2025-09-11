@@ -32,7 +32,7 @@ export const followUnFollowUser = async (req, res) => {
         const currentUser = await User.findById(req.user._id);
 
         if (id === req.user._id){
-            return res.status(400).json({message: "cant follow yourself and unfollow yourself"});
+            return res.status(404).json({message: "cant follow yourself and unfollow yourself"});
         }
 
         if (!userToModify || !currentUser){
@@ -105,7 +105,7 @@ export const updateUser = async (req,res) => {
         };
 
         if ((!newPassword && currentPassword) || (newPassword && !currentPassword)){
-            return res.status(400).json({message: "Both current and new passwords are required to change password"});
+            return res.status(404).json({message: "Both current and new passwords are required to change password"});
         };
 
         if (newPassword && currentPassword){
@@ -114,7 +114,7 @@ export const updateUser = async (req,res) => {
                 return res.status(400).json({message: "Current password is incorrect"});
             };
             if (newPassword.length < 6){
-                return res.status(400).json({message: "New password must be at least 6 characters long"});      
+                return res.status(404).json({message: "New password must be at least 6 characters long"});      
             };
 
             const salt = await bcrypt.genSalt(10);
