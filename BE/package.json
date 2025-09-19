@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Lainitha/connectx#readme",
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.13",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
     "cookie-parse": "^0.4.0",
@@ -30,7 +31,9 @@
     "mongoose": "^8.18.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "daisyui": "^5.1.10",
+    "nodemon": "^3.1.10",
+    "tailwindcss": "^4.1.13"
   },
   "type": "module"
 }
