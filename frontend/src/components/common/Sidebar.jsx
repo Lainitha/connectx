@@ -13,8 +13,12 @@ const Sidebar = () => {
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch("/api/auth/logout", {
+				const res = await fetch(`${baseUrl}/api/auth/logout`, {
 					method: "POST",
+					credentials : "include",
+					headers : {
+						"Content-Type" : "application/json"
+					}
 				});
 				const data = await res.json();
 
@@ -26,6 +30,8 @@ const Sidebar = () => {
 			}
 		},
 		onSuccess: () => {
+			toast.success("Logout Succesfully")
+
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
 		onError: () => {
@@ -77,7 +83,8 @@ const Sidebar = () => {
 					>
 						<div className='avatar hidden md:inline-flex'>
 							<div className='w-8 rounded-full'>
-								<img src={authUser?.profileImg || "/avatar-placeholder.png"} />
+								<img src={authUser?.profileImg || "/avatar-placeholder.png"} 
+								alt= "profileImage"/>
 							</div>
 						</div>
 						<div className='flex justify-between flex-1'>

@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 
 import XSvg from "../../../components/svgs/X";
 
-import { MdOutlineMail } from "react-icons/md";
+import { FaUser } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {baseUrl} from "../../../constant/url";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
+
 
 const LoginPage = () => {
 	const [formData, setFormData] = useState({
@@ -23,10 +26,12 @@ const LoginPage = () => {
 	} = useMutation({
 		mutationFn: async ({ username, password }) => {
 			try {
-				const res = await fetch("/api/auth/login", {
+				const res = await fetch(`${baseUrl}/api/auth/login`, {
 					method: "POST",
+					credentials: "include",
 					headers: {
 						"Content-Type": "application/json",
+
 					},
 					body: JSON.stringify({ username, password }),
 				});
@@ -42,6 +47,7 @@ const LoginPage = () => {
 		},
 		onSuccess: () => {
 			// refetch the authUser
+			toast.success("Login Sucess")
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
 	});
@@ -65,7 +71,7 @@ const LoginPage = () => {
 					<XSvg className='w-24 lg:hidden fill-white' />
 					<h1 className='text-4xl font-extrabold text-white'>{"Let's"} go.</h1>
 					<label className='input input-bordered rounded flex items-center gap-2'>
-						<MdOutlineMail />
+						<FaUser />
 						<input
 							type='text'
 							className='grow'
@@ -88,7 +94,7 @@ const LoginPage = () => {
 						/>
 					</label>
 					<button className='btn rounded-full btn-primary text-white'>
-						{isPending ? "Loading..." : "Login"}
+						{isPending ? <LoadingSpinner/> : "Login"}
 					</button>
 					{isError && <p className='text-red-500'>{error.message}</p>}
 				</form>

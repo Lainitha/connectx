@@ -3,10 +3,17 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cloudinary from 'cloudinary';
+import cors from 'cors';
 
 
 dotenv.config();
+
 const app = express();
+
+app.use(cors({
+    origin: "http://localhost:3001/",
+    credentials: true, // Allow cookies to be sent 
+}));
 const PORT = process.env.PORT ;
 //clodinary
 cloudinary.config({
@@ -26,6 +33,7 @@ import notificationRoute from "./routes/notification.route.js";
 
 app.use(express.json());
 app.use(cookieParser());//middleware to parse cookies from incoming requests
+app.use(express.urlencoded({extended: true})); //to parse urlencoded bodies (as sent by HTML forms)
 
 app.use("/api/auth",authRoute);
 app.use("/api/users",userRoute); 
