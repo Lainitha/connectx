@@ -1,3 +1,68 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ensure the black theme is applied */
+html[data-theme="black"] {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix input text visibility in black theme */
+input, textarea {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Ensure input fields have visible text */
+.input, .input-bordered {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+.input::placeholder, .input-bordered::placeholder {
+  color: #9ca3af !important;
+}
+
+/* More specific targeting for DaisyUI inputs */
+[data-theme="black"] input,
+[data-theme="black"] textarea,
+[data-theme="black"] .input,
+[data-theme="black"] .input-bordered {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+[data-theme="black"] input::placeholder,
+[data-theme="black"] textarea::placeholder,
+[data-theme="black"] .input::placeholder,
+[data-theme="black"] .input-bordered::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Target specific input types */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"] {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="search"]::placeholder {
+  color: #9ca3af !important;
+}

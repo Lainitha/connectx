@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
+import LoadingSpinner from "../../components/common/LoadingSpinner";
 
 const EditProfileModal = ({ authUser }) => {
 	const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const EditProfileModal = ({ authUser }) => {
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+	
 
 	useEffect(() => {
 		if (authUser) {
@@ -112,7 +114,8 @@ const EditProfileModal = ({ authUser }) => {
 							onChange={handleInputChange}
 						/>
 						<button className='btn btn-primary rounded-full btn-sm text-white'>
-							{isUpdatingProfile ? "Updating..." : "Update"}
+							{isUpdatingProfile && <LoadingSpinner size="sm"/>}
+							{!isUpdatingProfile && "Update"}
 						</button>
 					</form>
 				</div>

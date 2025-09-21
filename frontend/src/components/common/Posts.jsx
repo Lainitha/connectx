@@ -29,7 +29,7 @@ const Posts = ({ feedType, username, userId }) => {
 		refetch,
 		isRefetching,
 	} = useQuery({
-		queryKey: ["posts"],
+		queryKey: ["posts", feedType, username, userId],
 		queryFn: async () => {
 			try {
 				const res = await fetch(POST_ENDPOINT,{
@@ -44,8 +44,25 @@ const Posts = ({ feedType, username, userId }) => {
 					throw new Error(data.error || "Something went wrong");
 				}
 
-				return data;
+				// Handle different response formats from backend
+				if (Array.isArray(data)) {
+					// getLikedPosts returns array directly
+					return data;
+				} else if (data.posts) {
+					// getAllPosts returns {posts: [...]}
+					return data.posts;
+				} else if (data.feedPosts) {
+					// getFollowingPosts returns {feedPosts: [...]}
+					return data.feedPosts;
+				} else if (data.userPosts) {
+					// getUserPosts returns {userPosts: [...]}
+					return data.userPosts;
+				} else {
+					// Fallback to empty array
+					return [];
+				}
 			} catch (error) {
+				console.error("Error fetching posts:", error);
 				throw new Error(error);
 			}
 		},

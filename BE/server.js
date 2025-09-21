@@ -11,10 +11,10 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"],
     credentials: true, // Allow cookies to be sent 
 }));
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT || 5000;
 //clodinary
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
