@@ -52,8 +52,11 @@ const Post = ({ post }) => {
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`/api/posts/like/${post._id}`, {
+				const res = await fetch(`${baseUrl}/api/posts/like/${post._id}`, {
 					method: "POST",
+					credentials : "include",
+					headers : {
+						"Content-Type" : "application/json"					}
 				});
 				const data = await res.json();
 				if (!res.ok) {
@@ -69,6 +72,7 @@ const Post = ({ post }) => {
 			// queryClient.invalidateQueries({ queryKey: ["posts"] });
 
 			// instead, update the cache directly for that post
+			toast.success("Post Liked")
 			queryClient.setQueryData(["posts"], (oldData) => {
 				return oldData.map((p) => {
 					if (p._id === post._id) {
@@ -86,7 +90,7 @@ const Post = ({ post }) => {
 	const { mutate: commentPost, isPending: isCommenting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`/api/posts/comment/${post._id}`, {
+				const res = await fetch(`${baseUrl}/api/posts/comment/${post._id}`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
