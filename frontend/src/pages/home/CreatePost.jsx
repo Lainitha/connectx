@@ -4,6 +4,9 @@ import { useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { baseUrl } from "../../constant/url";
+import LoadingSpinner from "../../components/common/LoadingSpinner";
+
 
 const CreatePost = () => {
 	const [text, setText] = useState("");
@@ -21,8 +24,9 @@ const CreatePost = () => {
 	} = useMutation({
 		mutationFn: async ({ text, img }) => {
 			try {
-				const res = await fetch("/api/posts/create", {
+				const res = await fetch(`${baseUrl}/api/posts/create`, {
 					method: "POST",
+					credentials : "include",
 					headers: {
 						"Content-Type": "application/json",
 					},
@@ -99,7 +103,7 @@ const CreatePost = () => {
 					</div>
 					<input type='file' accept='image/*' hidden ref={imgRef} onChange={handleImgChange} />
 					<button className='btn btn-primary rounded-full btn-sm text-white px-4'>
-						{isPending ? "Posting..." : "Post"}
+						{isPending ? <LoadingSpinner size = "sm" /> : "Post"}
 					</button>
 				</div>
 				{isError && <div className='text-red-500'>{error.message}</div>}

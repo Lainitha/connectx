@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 
 import LoadingSpinner from "./LoadingSpinner";
 import { formatPostDate } from "../../utils/date";
+import { baseUrl } from "../../constant/url";
 
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
@@ -25,8 +26,12 @@ const Post = ({ post }) => {
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`/api/posts/${post._id}`, {
+				const res = await fetch(`${baseUrl}/api/posts/${post._id}`, {
 					method: "DELETE",
+					credentials : "include",
+					headers : {
+						"Content-Type" : "application/json"
+					}
 				});
 				const data = await res.json();
 

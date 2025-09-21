@@ -12,6 +12,8 @@ import RightPanel from "./components/common/RightPanel";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/common/LoadingSpinner";
+import { baseUrl } from "./constant/url";
+
 
 function App() {
 	const { data: authUser, isLoading } = useQuery({
@@ -19,9 +21,15 @@ function App() {
 		queryKey: ["authUser"],
 		queryFn: async () => {
 			try {
-				const res = await fetch("/api/auth/me");
+				const res = await fetch(`${baseUrl}/api/auth/me`,{
+					method : "GET",
+					credentials : "include",
+					headers : {
+						"Content-Type " : "application/json"
+					}}
+				);
 				const data = await res.json();
-				if (data.error) return null;
+				if (data.error) return null  ;
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
 				}
@@ -33,6 +41,8 @@ function App() {
 		},
 		retry: false,
 	});
+
+	console.log(authUser);
 
 	if (isLoading) {
 		return (

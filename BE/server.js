@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:3001/",
+    origin: "http://localhost:3000",
     credentials: true, // Allow cookies to be sent 
 }));
 const PORT = process.env.PORT ;
@@ -31,7 +31,11 @@ import notificationRoute from "./routes/notification.route.js";
 
 
 
-app.use(express.json());
+app.use(express.json(
+    {
+        limit : "5mb" //default value 100kb
+    }
+));
 app.use(cookieParser());//middleware to parse cookies from incoming requests
 app.use(express.urlencoded({extended: true})); //to parse urlencoded bodies (as sent by HTML forms)
 
