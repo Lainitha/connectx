@@ -26,7 +26,7 @@ const Post = ({ post }) => {
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`${baseUrl}/api/posts/${post._id}`, {
+				const res = await fetch(`${baseUrl}/api/posts/delete/${post._id}`, {
 					method: "DELETE",
 					credentials : "include",
 					headers : {
@@ -45,7 +45,11 @@ const Post = ({ post }) => {
 		},
 		onSuccess: () => {
 			toast.success("Post deleted successfully");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
+			// Remove this post from any posts cache arrays
+			queryClient.setQueriesData({ queryKey: ["posts"] }, (oldData) => {
+				if (!Array.isArray(oldData)) return oldData;
+				return oldData.filter((p) => p._id !== post._id);
+			});
 		},
 	});
 
