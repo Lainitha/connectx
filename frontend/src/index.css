@@ -66,3 +66,21 @@ input[type="password"]::placeholder,
 input[type="search"]::placeholder {
   color: #9ca3af !important;
 }
+
+/* In modals (white cards), inputs must be dark-on-light */
+.modal-box input,
+.modal-box textarea,
+.modal-box .input,
+.modal-box .input-bordered,
+.modal-box .textarea {
+  background-color: #ffffff !important;
+  color: #111827 !important; /* gray-900 */
+}
+
+.modal-box input::placeholder,
+.modal-box textarea::placeholder,
+.modal-box .input::placeholder,
+.modal-box .input-bordered::placeholder,
+.modal-box .textarea::placeholder {
+  color: #6b7280 !important; /* gray-500 */
+}

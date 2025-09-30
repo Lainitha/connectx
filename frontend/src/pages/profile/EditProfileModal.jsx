@@ -113,7 +113,7 @@ const EditProfileModal = ({ authUser }) => {
 							name='link'
 							onChange={handleInputChange}
 						/>
-						<button className='btn btn-primary rounded-full btn-sm text-white'>
+					<button className='btn rounded-full btn-sm text-white bg-blue-600 hover:bg-blue-700 border-none'>
 							{isUpdatingProfile && <LoadingSpinner size="sm"/>}
 							{!isUpdatingProfile && "Update"}
 						</button>

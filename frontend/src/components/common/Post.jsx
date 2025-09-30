@@ -49,7 +49,7 @@ const Post = ({ post }) => {
 		},
 	});
 
-	const { mutate: likePost, isPending: isLiking } = useMutation({
+    const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			try {
 				const res = await fetch(`${baseUrl}/api/posts/like/${post._id}`, {
@@ -67,21 +67,14 @@ const Post = ({ post }) => {
 				throw new Error(error);
 			}
 		},
-		onSuccess: (updatedLikes) => {
-			// this is not the best UX, bc it will refetch all posts
-			// queryClient.invalidateQueries({ queryKey: ["posts"] });
-
-			// instead, update the cache directly for that post
-			toast.success("Post Liked")
-			queryClient.setQueryData(["posts"], (oldData) => {
-				return oldData.map((p) => {
-					if (p._id === post._id) {
-						return { ...p, likes: updatedLikes };
-					}
-					return p;
-				});
-			});
-		},
+        onSuccess: (updatedLikes) => {
+            toast.success("Post Liked");
+            // Safely update all caches that start with ['posts']
+            queryClient.setQueriesData({ queryKey: ["posts"] }, (oldData) => {
+                if (!Array.isArray(oldData)) return oldData;
+                return oldData.map((p) => (p._id === post._id ? { ...p, likes: updatedLikes } : p));
+            });
+        },
 		onError: (error) => {
 			toast.error(error.message);
 		},
@@ -219,7 +212,7 @@ const Post = ({ post }) => {
 										onSubmit={handlePostComment}
 									>
                                         <textarea
-                                            className='textarea w-full p-1 rounded text-md resize-none border focus:outline-none border-gray-800 bg-white text-black placeholder-gray-500'
+                                            className='textarea w-full p-1 rounded text-md resize-none border focus:outline-none border-gray-800 bg-white !text-black caret-black placeholder-gray-500'
                                             placeholder='Add a comment...'
                                             value={comment}
                                             onChange={(e) => setComment(e.target.value)}

@@ -21,7 +21,6 @@ const Posts = ({ feedType, username, userId }) => {
 	};
 
 	const POST_ENDPOINT = getPostEndpoint();
-	console.log(POST_ENDPOINT);
 
 	const {
 		data: posts,
@@ -39,7 +38,6 @@ const Posts = ({ feedType, username, userId }) => {
 					"Content-Type": "application/json"
 				}				});
 				const data = await res.json();
-				console.log("API Response:", data);
 
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
@@ -48,23 +46,23 @@ const Posts = ({ feedType, username, userId }) => {
 				// Handle different response formats from backend
 				if (Array.isArray(data)) {
 					// getLikedPosts returns array directly
-					console.log("Returning array directly:", data);
+					
 					return data;
 				} else if (data.posts) {
 					// getAllPosts returns {posts: [...]}
-					console.log("Returning posts array:", data.posts);
+					
 					return data.posts;
 				} else if (data.feedPosts) {
 					// getFollowingPosts returns {feedPosts: [...]}
-					console.log("Returning feedPosts array:", data.feedPosts);
+					
 					return data.feedPosts;
 				} else if (data.userPosts) {
 					// getUserPosts returns {userPosts: [...]}
-					console.log("Returning userPosts array:", data.userPosts);
+					
 					return data.userPosts;
 				} else {
 					// Fallback to empty array
-					console.log("No posts found, returning empty array");
+					
 					return [];
 				}
 			} catch (error) {
