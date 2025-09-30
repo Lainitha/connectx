@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { baseUrl } from "../../constant/url";
 
 import useFollow from "../../hooks/useFollow";
 

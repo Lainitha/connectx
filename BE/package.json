@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "build":"npm install && npm install --include=dev --prefix ../frontend && npm run build --prefix ../frontend",
+    "start:prod": "cross-env NODE_ENV=production node server.js",
     "dev": "nodemon server.js"
   },
   "repository": {
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "daisyui": "^5.1.10",
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.10",
     "tailwindcss": "^4.1.13"
   },

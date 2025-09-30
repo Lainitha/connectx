@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const generateToken = (userID, res) => {
+    const cookieSecure = process.env.COOKIE_SECURE === "true"; // set to true only if behind HTTPS
     const token = jwt.sign({ userID}, process.env.JWT_SECRET,{
         expiresIn: "15d",
     });
@@ -8,7 +9,8 @@ const generateToken = (userID, res) => {
         maxAge: 15*24*60*60*1000, //15days,
         httpOnly : true,
         sameSite : "strict",
-        secure : process.env.NODE_ENV !== "development",
+        secure : cookieSecure,
+        path: "/",
     }
     )
 };

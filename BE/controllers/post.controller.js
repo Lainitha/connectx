@@ -102,7 +102,7 @@ export const commentOnPost = async (req, res) => {
 export const likeUnlikePost = async (req, res) => {
     try{
         const userId = req.user._id;
-        const {_id: postId} = req.params;
+        const {id: postId} = req.params;
 
         const post = await Post.findById(postId);   
         if (!post){

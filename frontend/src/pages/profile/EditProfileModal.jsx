@@ -53,62 +53,62 @@ const EditProfileModal = ({ authUser }) => {
 						}}
 					>
 						<div className='flex flex-wrap gap-2'>
-							<input
+					<input
 								type='text'
 								placeholder='Full Name'
-								className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 								value={formData.fullName}
 								name='fullName'
 								onChange={handleInputChange}
 							/>
-							<input
+					<input
 								type='text'
 								placeholder='Username'
-								className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 								value={formData.username}
 								name='username'
 								onChange={handleInputChange}
 							/>
 						</div>
 						<div className='flex flex-wrap gap-2'>
-							<input
+					<input
 								type='email'
 								placeholder='Email'
-								className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 								value={formData.email}
 								name='email'
 								onChange={handleInputChange}
 							/>
-							<textarea
+					<textarea
 								placeholder='Bio'
-								className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 								value={formData.bio}
 								name='bio'
 								onChange={handleInputChange}
 							/>
 						</div>
 						<div className='flex flex-wrap gap-2'>
-							<input
+					<input
 								type='password'
 								placeholder='Current Password'
-								className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 								value={formData.currentPassword}
 								name='currentPassword'
 								onChange={handleInputChange}
 							/>
-							<input
+					<input
 								type='password'
 								placeholder='New Password'
-								className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 								value={formData.newPassword}
 								name='newPassword'
 								onChange={handleInputChange}
 							/>
 						</div>
-						<input
+					<input
 							type='text'
 							placeholder='Link'
-							className='flex-1 input border border-gray-700 rounded p-2 input-md'
+						className='flex-1 input border border-gray-700 rounded p-2 input-md text-black'
 							value={formData.link}
 							name='link'
 							onChange={handleInputChange}

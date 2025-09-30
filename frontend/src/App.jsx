@@ -21,7 +21,6 @@ function App() {
 		queryKey: ["authUser"],
 		queryFn: async () => {
 			try {
-				console.log("Making request to:", `${baseUrl}/api/auth/me`);
 				const res = await fetch(`${baseUrl}/api/auth/me`,{
 					method : "GET",
 					credentials : "include",
@@ -29,9 +28,7 @@ function App() {
 						"Content-Type": "application/json"
 					}
 				});
-				console.log("Response status:", res.status);
 				const data = await res.json();
-				console.log("Response data:", data);
 				if (data.error) return null;
 				if (!res.ok) {
 					// For 401 (Unauthorized), return null instead of throwing error
@@ -40,17 +37,14 @@ function App() {
 					}
 					throw new Error(data.error || "Something went wrong");
 				}
-				console.log("authUser is here:", data);
 				return data;
 			} catch (error) {
-				console.error("Error in auth query:", error);
 				throw new Error(error);
 			}
 		},
 		retry: false,
 	});
 
-	console.log("Auth state:", { authUser, isLoading, error });
 
 	if (isLoading) {
 		return (

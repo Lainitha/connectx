@@ -7,20 +7,27 @@ import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { baseUrl } from "../../constant/url";
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
 	const { mutate: logout } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`${baseUrl}/api/auth/logout`, {
+				let res = await fetch(`${baseUrl}/api/auth/logout`, {
 					method: "POST",
 					credentials : "include",
 					headers : {
 						"Content-Type" : "application/json"
-					}
+					},
+					body: JSON.stringify({}) // avoid empty-body JSON parse errors
 				});
-				const data = await res.json();
+				if (!res.ok) {
+					// fallback to GET for environments that block POST
+					res = await fetch(`${baseUrl}/api/auth/logout`, { method: "GET", credentials: "include" });
+				}
+				let data = {};
+				try { data = await res.json(); } catch (_) {}
 
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
@@ -34,8 +41,8 @@ const Sidebar = () => {
 
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 		},
-		onError: () => {
-			toast.error("Logout failed");
+			onError: () => {
+				toast.error("Logout failed");
 		},
 	});
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });

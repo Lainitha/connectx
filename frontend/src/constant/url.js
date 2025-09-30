@@ -1,1 +1,1 @@
-export const baseUrl = "";
+export const baseUrl = ""; // empty means same-origin; works in production at http://localhost:5000

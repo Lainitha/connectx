@@ -135,11 +135,13 @@ const Post = ({ post }) => {
 	return (
 		<>
 			<div className='flex gap-2 items-start p-4 border-b border-gray-700'>
-				<div className='avatar'>
-					<Link to={`/profile/${postOwner.username}`} className='w-8 rounded-full overflow-hidden'>
-						<img src={postOwner.profileImg || "/avatar-placeholder.png"} />
-					</Link>
-				</div>
+			<div className='avatar shrink-0'>
+				<Link to={`/profile/${postOwner.username}`}>
+					<div className='w-8 rounded-full'>
+						<img className='w-8 h-8 object-cover' src={postOwner.profileImg || "/avatar-placeholder.png"} />
+					</div>
+				</Link>
+			</div>
 				<div className='flex flex-col flex-1'>
 					<div className='flex gap-2 items-center'>
 						<Link to={`/profile/${postOwner.username}`} className='font-bold'>
@@ -216,13 +218,13 @@ const Post = ({ post }) => {
 										className='flex gap-2 items-center mt-4 border-t border-gray-600 pt-2'
 										onSubmit={handlePostComment}
 									>
-										<textarea
-											className='textarea w-full p-1 rounded text-md resize-none border focus:outline-none  border-gray-800'
-											placeholder='Add a comment...'
-											value={comment}
-											onChange={(e) => setComment(e.target.value)}
-										/>
-										<button className='btn btn-primary rounded-full btn-sm text-white px-4'>
+                                        <textarea
+                                            className='textarea w-full p-1 rounded text-md resize-none border focus:outline-none border-gray-800 bg-white text-black placeholder-gray-500'
+                                            placeholder='Add a comment...'
+                                            value={comment}
+                                            onChange={(e) => setComment(e.target.value)}
+                                        />
+                                        <button className='btn rounded-full btn-sm text-white px-4 bg-blue-600 hover:bg-blue-700 border-none'>
 											{isCommenting ? <LoadingSpinner size='md' /> : "Post"}
 										</button>
 									</form>
