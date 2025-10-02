@@ -9,8 +9,16 @@ A full-stack social media application built with the MERN stack (MongoDB, Expres
 - User profiles
 - Responsive design with Tailwind CSS
 
-## Tech Stack
-- **Frontend**: React, React Router, TanStack Query, Tailwind CSS
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT with secure cookies
+# 🛠️ Tech Stack
+
+### Frontend
+- ⚛️ **React** - UI Library
+- 🛣️ **React Router** - Navigation
+- 🔄 **TanStack Query** - Data fetching
+- 🎨 **Tailwind CSS** - Styling
+
+### Backend
+- 🟢 **Node.js** - Runtime environment
+- 🚂 **Express.js** - Web framework
+- 🍃 **MongoDB** - Database
+- 🔑 **JWT** - Authentication with secure cookies
